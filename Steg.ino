@@ -1,9 +1,9 @@
     #include <math.h>
 
 
-const int pwr_a = 3;
+const int pwr_a = 5;
 const int pwr_b = 9;
-const int dir_a = 2;
+const int dir_a = 4;
 const int dir_b = 8;
 
 int stegtid = 10;
