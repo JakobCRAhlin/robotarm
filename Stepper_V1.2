@@ -1,0 +1,146 @@
+
+const int pwr_a = 5;
+const int pwr_b = 9;
+const int dir_a = 4;
+const int dir_b = 8;
+
+int stegtid = 10000;
+int poss = 1;
+float degreeposs = 0;
+void setup() {
+  // put your setup code here, to run once:
+ 
+  pinMode(pwr_a,OUTPUT);
+  pinMode(pwr_b,OUTPUT);
+  pinMode(dir_a,OUTPUT);
+  pinMode(dir_b,OUTPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  turn(187.1);
+  delay(1000);
+  
+  turn(-180);
+  delay(2000);
+  
+}
+
+void turn(float degreetarget){
+  if( degreetarget > 0 )
+  {
+    forward(degreetarget);
+  } 
+  else 
+  {
+    backward(degreetarget);
+  }
+}
+
+void forward(float degreetarget)
+{
+  while(degreeposs<=degreetarget){
+    if (poss == 4 && degreeposs<=degreetarget)
+    {
+    poss=1;
+    digitalWrite(pwr_a,HIGH);
+    digitalWrite(pwr_b,LOW);
+    digitalWrite(dir_a,HIGH);
+    digitalWrite(dir_b,LOW);
+    degreeposs = degreeposs+1.8 ;
+    delay(stegtid) ; 
+    }
+    else if (poss==1 && degreeposs<=degreetarget)
+    {
+    poss=2;
+    digitalWrite(pwr_a,LOW);
+    digitalWrite(pwr_b,HIGH);
+    digitalWrite(dir_a,LOW);
+    digitalWrite(dir_b,HIGH);
+    degreeposs=degreeposs+1.8;
+    delay(stegtid);
+    }
+    else if (poss==2 && degreeposs<=degreetarget)
+    {
+    poss=3;
+    digitalWrite(pwr_a,HIGH);
+    digitalWrite(pwr_b,LOW);
+    digitalWrite(dir_a,LOW);
+    digitalWrite(dir_b,LOW);
+    degreeposs=degreeposs+1.8;
+    delay(stegtid);
+    }
+    else if (poss=3 && degreeposs<=degreetarget)
+    {
+    poss=4;
+    digitalWrite(pwr_a,LOW);
+    digitalWrite(pwr_b,HIGH);
+    digitalWrite(dir_a,LOW);
+    digitalWrite(dir_b,LOW);
+    degreeposs=degreeposs+1.8;
+    delay(stegtid);
+    }
+  }
+  //RESET MOTOR
+  digitalWrite(pwr_a,LOW);
+  digitalWrite(pwr_b,LOW);
+  digitalWrite(dir_a,LOW);
+  digitalWrite(dir_b,LOW);
+  delay(stegtid);
+  degreeposs=0; // Endast för DEMO bör tas bort innan slutgiltigt program.
+  delay(2000);
+}
+void backward(float degreetarget)
+{
+  while(degreeposs>=degreetarget)
+  {
+    if (poss==1 && degreeposs>=degreetarget)
+    {
+      poss=4;
+      digitalWrite(pwr_a,LOW);
+      digitalWrite(pwr_b,HIGH);
+      digitalWrite(dir_a,LOW);
+      digitalWrite(dir_b,LOW);
+      degreeposs=degreeposs-1.8;
+      delay(stegtid);
+    }
+    else if (poss==4 && degreeposs>=degreetarget)
+    {
+      poss=3;
+      digitalWrite(pwr_a,HIGH);
+      digitalWrite(pwr_b,LOW);
+      digitalWrite(dir_a,LOW);
+      digitalWrite(dir_b,LOW);
+      degreeposs=degreeposs-1.8;
+      delay(stegtid);
+    }
+    else if (poss==3 && degreeposs>=degreetarget)
+    {
+      poss=2;
+      digitalWrite(pwr_a,LOW);
+      digitalWrite(pwr_b,HIGH);
+      digitalWrite(dir_a,LOW);
+      digitalWrite(dir_b,HIGH);
+      degreeposs=degreeposs-1.8;
+      delay(stegtid);
+    }
+    else if (poss==2 && degreeposs>=degreetarget)
+    {
+      poss=1;
+      digitalWrite(pwr_a,HIGH);
+      digitalWrite(pwr_b,LOW);
+      digitalWrite(dir_a,HIGH);
+      digitalWrite(dir_b,LOW);
+      degreeposs=degreeposs-1.8;
+      delay(stegtid);
+    }
+  }
+  //RESET MOTOR
+  digitalWrite(pwr_a,LOW);
+  digitalWrite(pwr_b,LOW);
+  digitalWrite(dir_a,LOW);
+  digitalWrite(dir_b,LOW);
+  delay(stegtid);
+  degreeposs=0; // Bör tas bort vid slutgiltigt program
+  
+}
